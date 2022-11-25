@@ -1,5 +1,8 @@
+//This Program is made for a vertical farming machine that we build during our
+//engineering project at the University of Ghent
+
 //LIBRARY
-#include <Wire.h> 
+#include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
 //Set LCD address to 0x27 for a 16 chars and 2 line display
@@ -31,18 +34,17 @@ void setup() {
   pinMode(PUMP, OUTPUT);
 
   //LCD
-  lcd.begin(); //Initialise the lcd
-  lcd.backlight(); //turn on the backlight and print a message
-  lcd.setCursor(0,0); //set cursor
-  lcd.print("STARTING...") //display "STARTING..." as test
+  lcd.begin();              //Initialise the lcd
+  lcd.backlight();          //turn on the backlight and print a message
+  lcd.setCursor(0, 0);      //set cursor
+  lcd.print("STARTING...")  //display "STARTING..." as test
 }
 //MAIN
 void loop() {
   lightsOn();
-  delay(43200000); //wait 12 hours 
+  delay(43200000);  //wait 12 hours
   lightsOff()
-  delay(43200000); //wait 12 hours
-
+    delay(43200000);  //wait 12 hours
 }
 
 //FUNCTIONS
@@ -62,9 +64,9 @@ void lightsOff() {
 
 //Pumps water during a set amount of time (AMOUNT_OF_WATER) in ms
 void pumpCycle() {
-  digitalWrite(PUMP,HIGH);
+  digitalWrite(PUMP, HIGH);
   delay(AMOUNT_OF_WATER);
-  digitalWrite(PUMP,LOW);
+  digitalWrite(PUMP, LOW);
   delay(3000);
 }
 
@@ -72,14 +74,3 @@ void pumpCycle() {
 void lcdInput() {
   //kan info geven, moeten nog beslissen wat
 }
-
-
-
-
-
-
-
-
-
-
-
