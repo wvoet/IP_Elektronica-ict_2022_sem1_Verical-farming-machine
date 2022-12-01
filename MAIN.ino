@@ -4,6 +4,8 @@
 //LIBRARY
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h> //Library for LCD
+#include <TimeLib.h>
+#include <DS1307RTC.h>
 
 //PIN_NUMBERS
 const int LIGHT1 = 11; //PIN OF LIGHT 1
@@ -27,6 +29,10 @@ const int needWaterValue = 800; //Value that indicates when the soil is just rig
 //VARIABELS, moet nog: tijd, licht-intesiteit, hoogte plant.
 float Temperature = 0; //temperature box
 
+const int *On[13] = {9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21};
+
+tmElements_t tm;
+
 //Configures the arduino to the correct pins and starts the machine
 void setup() {
   //LIGHTS:
@@ -45,16 +51,20 @@ void setup() {
   lcd.backlight();          //turn on the backlight and print a message
   lcd.setCursor(0, 0);      //set cursor
   lcd.print("STARTING...");  //display "STARTING..." as test
+
+  //Test
+  Serial.begin(9600);
+  while (!Serial) ; // wait for serial
+  delay(200);
+  Serial.println("DS1307RTC Read Test");
+  Serial.println("-------------------");
+
 }
 //MAIN
 void loop() {
   lightsOn();
-  delay(43200000);  //wait 12 hours
-  lightsOff();
-  delay(43200000);  //wait 12 hours
-  Serial.println(moistureLevel());
+  pumpCycle();
 }
-
 //FUNCTIONS
 
 //Lights
@@ -100,14 +110,22 @@ void pumpCycle() {
 
 //Check moisturelevel and decide if water needs to be added
 void addWater() {
-  int errorCheck = 0
-  int moistureLevel = readMoistureLevel() & errorCheck <= 5 {
-    while moistureLevel >= needWaterValue;
+  int errorCheck = 0;
+  int moistureLevel = readMoistureLevel();
+  while (moistureLevel >= needWaterValue & errorCheck <= 5) {
       pumpCycle();
       delay(10000);
-      int moistureLevel = readMoistureLevel();
-      errorCheck += 1
-    if errorCheck <= 5
-
+      moistureLevel = readMoistureLevel();
+      errorCheck += 1;
   }
+}
+bool LampsOnOrOff () {
+  RTC.read(tm);
+  int tm_correct = int(tm.Hour);
+  int x;
+  for (int x = 0; x<13; x++);
+    if (x == tm.Hour);
+      return true;
+    else;
+      return false;
 }
